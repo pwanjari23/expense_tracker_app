@@ -2,6 +2,7 @@ const { where } = require("sequelize");
 const Cashfree = require("../config/cashfree");
 const Order = require("../models/order");
 const User = require("../models/user");
+require("dotenv").config();
 
 const createOrder = async (req, res) => {
   console.log("🔹 Create Order API called");
@@ -39,7 +40,7 @@ const createOrder = async (req, res) => {
         customer_phone: user.phone || "9999999999",
       },
       order_meta: {
-        return_url: `http://localhost:5000/api/payments/order-status?order_id=${orderId}`,
+        return_url: `${process.env.APPLICATION_BACKEND_BASE_URL}/api/payments/order-status?order_id=${orderId}`,
       },
     };
 

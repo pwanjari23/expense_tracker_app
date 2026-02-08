@@ -1,3 +1,6 @@
+
+require("dotenv").config();
+
 const form = document.getElementById("forgot-password-form");
 
 form.addEventListener("submit", async (e) => {
@@ -7,7 +10,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/password/forgotpassword",
+      `${process.env.APPLICATION_BACKEND_BASE_URL}/api/password/forgotpassword`,
       { email },
     );
     console.log("Server response:", response.data);

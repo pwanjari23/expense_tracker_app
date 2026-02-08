@@ -3,6 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const ForgotPasswordRequest = require("../models/forgotPasswordRequest");
+require("dotenv").config();
+
 
 exports.forgetPassword = async (req, res) => {
   const { email } = req.body;
@@ -29,7 +31,8 @@ exports.forgetPassword = async (req, res) => {
 
     const tranEmailApi = new Sib.TransactionalEmailsApi();
 
-    const resetLink = `http://localhost:5000/password/resetpassword/${resetId}`;
+    const resetLink = `${process.env.APPLICATION_BACKEND_BASE_URL}/password/resetpassword/${resetId}`;
+    // const resetLink = `${process.env.APPLICATION_BACKEND_BASE_URL}/password/resetpassword/${resetId}`;
 
     const sendSmtpEmail = {
       to: [{ email: process.env.EMAIL_RECEIVER }],

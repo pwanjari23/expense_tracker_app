@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const form = document.getElementById("reset-password-form");
 
 // Get the UUID from URL
@@ -15,7 +17,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/password/resetpassword/${resetId}`,
+      `${process.env.APPLICATION_BACKEND_BASE_URL}/api/password/resetpassword/${resetId}`,
       { password }
     );
 

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const form = document.getElementById("signup-form");
 
 form.addEventListener("submit", async (e) => {
@@ -30,7 +32,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/api/users/signup", {
+    const response = await fetch(`${process.env.APPLICATION_BACKEND_BASE_URL}/api/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
