@@ -36,6 +36,8 @@ function updateDownloadUI() {
     dailyBtn.disabled = false;
     weeklyBtn.disabled = false;
     monthlyBtn.disabled = false;
+    askAI.disabled = false;
+    viewLeaderboardBtn.disabled = false;
 
     premiumHint.classList.add("hidden");
   } else {
