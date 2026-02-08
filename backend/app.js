@@ -1,10 +1,8 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs"); // <-- needed for write streams
-const morgan = require('morgan');
-const logger = require('./logger'); // Winston logger for errors
-const cors = require("cors");
-app.use(cors());
+const morgan = require("morgan");
+const logger = require("./logger"); // Winston logger for errors
 
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
@@ -14,11 +12,13 @@ const aiRoutes = require("./routes/aiRoutes");
 const forgetPasswordRoutes = require("./routes/forgetPasswordRoutes");
 
 const app = express();
+const cors = require("cors");
+app.use(cors());
 
 // --------------------
 // Create logs directory if it doesn't exist
 // --------------------
-const logDir = path.join(__dirname, 'logs');
+const logDir = path.join(__dirname, "logs");
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
@@ -27,18 +27,18 @@ if (!fs.existsSync(logDir)) {
 // Morgan setup for logging HTTP requests
 // --------------------
 const accessLogStream = fs.createWriteStream(
-  path.join(logDir, 'access.log'),
-  { flags: 'a' } // append mode
+  path.join(logDir, "access.log"),
+  { flags: "a" }, // append mode
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Log requests to console (dev)
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 // Log requests to file
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan("combined", { stream: accessLogStream }));
 
 // app.use(express.static(path.join(__dirname, "../Frontend/public")));
 
@@ -66,7 +66,9 @@ app.get("/login.html", (req, res) => {
 });
 
 app.get("/password/resetpassword/:id", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/public/login/resetpassword.html"));
+  res.sendFile(
+    path.join(__dirname, "../Frontend/public/login/resetpassword.html"),
+  );
 });
 
 // --------------------
@@ -74,12 +76,14 @@ app.get("/password/resetpassword/:id", (req, res) => {
 // --------------------
 app.use((err, req, res, next) => {
   // Log the error to error.log using Winston
-  logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+  logger.error(
+    `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`,
+  );
 
   // Respond with error message
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || 'Internal Server Error'
+    message: err.message || "Internal Server Error",
   });
 });
 
