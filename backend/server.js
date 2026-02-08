@@ -4,7 +4,7 @@ const cors = require("cors");
 app.use(cors());
 const sequelize = require("./config/sequelize");
 
-const PORT = APPLICATION_BACKEND_BASE_URL || 5000;
+const PORT = process.env.APPLICATION_BACKEND_BASE_URL || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
