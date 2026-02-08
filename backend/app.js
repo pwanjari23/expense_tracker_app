@@ -3,6 +3,8 @@ const path = require("path");
 const fs = require("fs"); // <-- needed for write streams
 const morgan = require('morgan');
 const logger = require('./logger'); // Winston logger for errors
+const cors = require("cors");
+app.use(cors());
 
 const userRoutes = require("./routes/userRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
