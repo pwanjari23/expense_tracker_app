@@ -1,4 +1,4 @@
-require("dotenv").config();
+
 
 const token = localStorage.getItem("token");
 if (token) {
@@ -31,7 +31,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const response = await fetch(`${process.env.APPLICATION_BACKEND_BASE_URL}/api/users/login`, {
+    const response = await fetch(`/api/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

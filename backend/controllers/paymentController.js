@@ -40,7 +40,7 @@ const createOrder = async (req, res) => {
         customer_phone: user.phone || "9999999999",
       },
       order_meta: {
-        return_url: `${process.env.APPLICATION_BACKEND_BASE_URL}/api/payments/order-status?order_id=${orderId}`,
+        return_url: `/api/payments/order-status?order_id=${orderId}`,
       },
     };
 

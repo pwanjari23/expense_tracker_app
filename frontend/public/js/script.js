@@ -1,4 +1,3 @@
-require("dotenv").config();
 
 let token = localStorage.getItem("token");
 
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1️⃣ Create order
       const res = await fetch(
-        `${process.env.APPLICATION_BACKEND_BASE_URL}/api/payments/create-order`,
+        `/api/payments/create-order`,
         {
           method: "POST",
           headers: {
@@ -112,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const userToken = localStorage.getItem("token");
         console.log("userToken", userToken);
         const orderStatusResponse = await fetch(
-          `${process.env.APPLICATION_BACKEND_BASE_URL}/api/payments/order-status?order_id=${data.order_id}`,
+          `/api/payments/order-status?order_id=${data.order_id}`,
           {
             method: "GET",
             headers: {
@@ -127,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // alert(`Payment status is:${alertStatus} `);
 
         const getUserDetails = await fetch(
-          `${process.env.APPLICATION_BACKEND_BASE_URL}/api/users/userdetails/${orderStatusResponseData.userId}`,
+          `/api/users/userdetails/${orderStatusResponseData.userId}`,
           {
             method: "GET",
             headers: {
@@ -164,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //     }
 
   //     const res = await fetch(
-  //       `${process.env.APPLICATION_BACKEND_BASE_URL}/api/premium/getexpencereport/${userId}`,
+  //       `/api/premium/getexpencereport/${userId}`,
   //       {
   //         headers: {
   //           "Content-Type": "application/json",
@@ -201,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const userId = userDetails.id;
 
       const res = await fetch(
-        `${process.env.APPLICATION_BACKEND_BASE_URL}/api/premium/getexpencereport/${userId}`,
+        `/api/premium/getexpencereport/${userId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -230,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `${process.env.APPLICATION_BACKEND_BASE_URL}/api/premium/getLeaderboard/${userDetails.id}`,
+        `/api/premium/getLeaderboard/${userDetails.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -568,7 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       console.log({ amount, title, category });
-      const res = await fetch(`${process.env.APPLICATION_BACKEND_BASE_URL}/api/expenses/addexpense`, {
+      const res = await fetch(`/api/expenses/addexpense`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -599,7 +598,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchExpenses() {
     try {
       const res = await fetch(
-        `${process.env.APPLICATION_BACKEND_BASE_URL}/api/expenses/getExpenses`,
+        `/api/expenses/getExpenses`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -673,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const res = await fetch(
-          `${process.env.APPLICATION_BACKEND_BASE_URL}/api/expenses/delete/${expenseId}`,
+          `/api/expenses/delete/${expenseId}`,
           {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
@@ -728,7 +727,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`${process.env.APPLICATION_BACKEND_BASE_URL}/api/callAI/callai`, {
+      const res = await fetch(`/api/callAI/callai`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

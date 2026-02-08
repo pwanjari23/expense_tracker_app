@@ -1,4 +1,3 @@
-require("dotenv").config();
 
 const form = document.getElementById("reset-password-form");
 
@@ -17,7 +16,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await axios.post(
-      `${process.env.APPLICATION_BACKEND_BASE_URL}/api/password/resetpassword/${resetId}`,
+      `/api/password/resetpassword/${resetId}`,
       { password }
     );
 
