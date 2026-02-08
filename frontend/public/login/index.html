@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Expense Tracker</title>
+    <link href="../../css/output.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="min-h-screen flex items-center justify-center bg-[#0b0f14] text-slate-200"
+  >
+    <div class="bg-teal-600/10 w-full max-w-md p-8 rounded-2xl shadow-xl">
+      <h1 class="text-2xl font-semibold text-center text-tealSoft-600 mb-6">
+        Login
+      </h1>
+
+      <form id="login-form" class="space-y-5">
+        <input
+          type="email"
+          placeholder="Email"
+          class="w-full p-3 border-b bg-[#1e293b] border border-white/10 border-gray-300 focus:outline-none focus:border-tealSoft-400"
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          class="w-full p-3 border-b bg-[#1e293b] border border-white/10 border-gray-300 focus:outline-none focus:border-tealSoft-400"
+          required
+        />
+
+        <button
+          type="submit"
+          class="w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-lg transition font-medium"
+        >
+          Login
+        </button>
+      </form>
+
+      <div class="mt-6 text-sm text-gray-500 flex justify-between">
+        <a
+          href="../signup/index.html"
+          class="text-tealSoft-600 hover:underline"
+        >
+          Don't have an account? Sign up
+        </a>
+
+        <a
+          href="./forgetPassword.html"
+          class="text-tealSoft-600 hover:underline"
+        >
+          Forgot password?
+        </a>
+      </div>
+    </div>
+
+    <script src="../../js/login.js"></script>
+  </body>
+</html>

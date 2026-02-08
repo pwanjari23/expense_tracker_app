@@ -1,0 +1,41 @@
+{
+  "name": "expense-tracker-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "dev:win": "nodemon --exec \"node backend/server.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "nodemon": "^3.1.11",
+    "postcss": "^8.5.6",
+    "sequelize-cli": "^6.6.5",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "@google/genai": "^1.39.0",
+    "aws-sdk": "^2.1693.0",
+    "axios": "^1.13.4",
+    "bcrypt": "^6.0.0",
+    "cashfree-pg": "^4.3.10",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "mysql2": "^3.16.2",
+    "pdfkit": "^0.17.2",
+    "sequelize": "^6.37.7",
+    "sib-api-v3-sdk": "^8.5.0",
+    "uuid": "^13.0.0",
+    "winston": "^3.19.0"
+  }
+}

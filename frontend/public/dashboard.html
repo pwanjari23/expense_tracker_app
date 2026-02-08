@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link href="css/output.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-[#0b0f14] text-slate-200 min-h-screen antialiased p-6">
+    <div id="app-container" class="hidden flex min-h-[calc(100vh-3rem)] gap-6">
+      <!-- SIDEBAR -->
+      <aside
+        class="w-64 bg-[#0f172a] border border-white/5 rounded-3xl flex flex-col"
+      >
+        <div class="px-6 py-6 text-2xl font-bold text-teal-400">
+          Expense Tracker
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2">
+          <div
+            id="homeNav"
+            class="px-4 py-3 rounded-xl bg-teal-600/10 text-teal-400 cursor-pointer"
+          >
+            🏠 Home
+          </div>
+          <div
+            id="expensesNav"
+            class="px-4 py-3 rounded-xl hover:bg-white/5 cursor-pointer"
+          >
+            💸 Expenses
+          </div>
+          <div class="px-4 py-3 rounded-xl hover:bg-white/5 cursor-pointer">
+            ⚙️ Settings
+          </div>
+        </nav>
+
+        <button
+          id="logout"
+          class="m-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white"
+        >
+          Logout
+        </button>
+      </aside>
+
+      <!-- MAIN -->
+      <main
+        class="flex-1 bg-[#0f172a] border border-white/5 rounded-3xl p-8 space-y-8"
+      >
+        <!-- HEADER - only welcome back -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-semibold">Welcome back 👋</h1>
+            <p class="text-slate-400 text-sm">
+              Track and control your spending
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-center">
+            <button
+              id="buyPremiumBtn"
+              class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm"
+            >
+              Go Premium
+            </button>
+
+            <div
+              id="premiumStatus"
+              class="hidden flex gap-3 items-center bg-emerald-600/10 text-emerald-400 px-4 py-2 rounded-xl"
+            >
+              ⭐ Premium
+            </div>
+          </div>
+        </div>
+
+        <!-- HOME VIEW - only the 3 buttons -->
+        <div id="homeView" class="space-y-8">
+          <section class="flex flex-wrap gap-6">
+            <button
+              id="openAddBtn"
+              class="bg-[#111827] border border-teal-500 rounded-2xl p-6 hover:border-emerald-500 transition text-left flex-1"
+            >
+              <p class="text-lg font-semibold">➕ Add Expense</p>
+              <p class="text-sm text-slate-400">Log a new expense</p>
+            </button>
+
+            <button
+              id="viewLeaderboardBtn"
+              class="bg-[#111827] border border-teal-500 rounded-2xl p-6 hover:border-emerald-500 transition text-left flex-1"
+            >
+              <p class="text-lg font-semibold">🏆 Leaderboard</p>
+              <p class="text-sm text-slate-400">Top spenders</p>
+            </button>
+
+            <button
+              id="askAI"
+              class="bg-[#111827] border border-teal-500 rounded-2xl p-6 hover:border-purple-500 transition text-left flex-1"
+            >
+              <p class="text-lg font-semibold">🤖 Ask AI</p>
+              <p class="text-sm text-slate-400">Insights & tips</p>
+            </button>
+
+            <button
+              id="generateReportHome"
+              class="bg-[#111827] border border-teal-500 rounded-2xl p-6 hover:border-purple-500 transition text-left flex-1"
+            >
+              <p class="text-lg font-semibold">📊 Generate Report</p>
+              <p class="text-sm text-slate-400">Insights & tips</p>
+            </button>
+          </section>
+        </div>
+
+        <!-- EXPENSES VIEW -->
+        <div id="expensesView" class="hidden">
+          <section
+            class="bg-[#111827] border border-white/5 rounded-2xl overflow-hidden"
+          >
+            <div
+              class="flex justify-between items-center px-6 py-4 border-b border-white/5"
+            >
+              <h2 class="text-lg font-semibold">Expenses</h2>
+              <div class="text-right">
+                <p class="text-xs text-slate-400">Today</p>
+                <p id="todayTotal" class="text-xl font-bold text-rose-400">
+                  ₹ 0
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="flex justify-between items-center px-6 py-4 border-b border-white/5 gap-4 flex-wrap"
+            >
+              <div class="flex gap-2">
+                <button
+                  id="filterDaily"
+                  class="px-3 py-1 rounded-xl bg-teal-600 text-sm hover:bg-teal-700 transition"
+                >
+                  Daily
+                </button>
+                <button
+                  id="filterWeekly"
+                  class="px-3 py-1 rounded-xl bg-teal-600 text-sm hover:bg-teal-700 transition"
+                >
+                  Weekly
+                </button>
+                <button
+                  id="filterMonthly"
+                  class="px-3 py-1 rounded-xl bg-teal-600 text-sm hover:bg-teal-700 transition"
+                >
+                  Monthly
+                </button>
+              </div>
+
+              <button
+                id="downloadExpensesBtn"
+              >
+              </button>
+
+              <button
+                id="reportBtn"
+                onclick="generateReport()"
+                class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Generate Report
+              </button>
+              
+            </div>
+
+            <!-- Pagination & Items per page controls -->
+            <div
+              class="flex justify-between items-center px-6 py-4 border-b border-white/5 gap-4 flex-wrap"
+            >
+              <div class="flex items-center gap-4">
+                <label for="itemsPerPage" class="text-sm text-slate-400"
+                  >Show:</label
+                >
+                <select
+                  id="itemsPerPage"
+                  class="bg-[#1e293b] border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-teal-500"
+                >
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+
+              <div class="flex items-center gap-4 text-sm">
+                <button
+                  id="prevPage"
+                  class="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ← Prev
+                </button>
+                <span id="pageInfo" class="text-slate-400">Page 1 of 1</span>
+                <button
+                  id="nextPage"
+                  class="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="todayList"
+              class="divide-y divide-white/5 max-h-[60vh] overflow-y-auto [&>*]:bg-transparent [&>*]:text-white [&>*_small]:text-slate-400"
+            ></div>
+          </section>
+
+          <p
+            id="premiumHint"
+            class="hidden text-sm text-purple-400 mt-2 cursor-pointer hover:underline"
+          >
+            🔒 Go Premium to unlock downloads
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODALS -->
+    <div
+      id="addModal"
+      class="fixed inset-0 bg-black/70 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 z-50"
+    >
+      <div
+        class="bg-[#0f172a] rounded-2xl p-8 w-full max-w-md border border-white/10 scale-95 opacity-0 transition-all duration-300"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold">Add New Expense</h2>
+          <button
+            id="closeAddBtn"
+            class="text-slate-400 hover:text-white text-2xl"
+          >
+            ×
+          </button>
+        </div>
+        <form id="expenseForm" class="space-y-5">
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Title</label>
+            <input
+              type="text"
+              id="title"
+              required
+              class="w-full bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500"
+              placeholder="e.g. Morning Coffee"
+            />
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Amount (₹)</label>
+            <input
+              type="number"
+              id="amount"
+              step="0.01"
+              min="0.01"
+              required
+              class="w-full bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500"
+              placeholder="120.50"
+            />
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1">Category</label>
+            <select
+              id="category"
+              required
+              class="w-full bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-teal-500"
+            >
+              <option value="" disabled selected>Select category</option>
+              <option value="Food & Drinks">Food & Drinks</option>
+              <option value="Transport">Transport</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Bills">Bills</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Health">Health</option>
+              <option value="Petrol">Petrol</option>
+              <option value="Salary">Salary</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-medium transition"
+          >
+            Add Expense
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="askAIModal"
+      class="fixed inset-0 bg-black/70 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 z-50"
+    >
+      <div
+        class="bg-[#0f172a] rounded-2xl p-8 w-full max-w-lg border border-white/10 scale-95 opacity-0 transition-all duration-300"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold">Ask AI for Insights</h2>
+          <button
+            id="closeAskAIBtn"
+            class="text-slate-400 hover:text-white text-2xl"
+          >
+            ×
+          </button>
+        </div>
+        <div class="space-y-4">
+          <textarea
+            id="askAIInput"
+            rows="4"
+            class="w-full bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 resize-none"
+            placeholder="Ask anything about your spending..."
+          ></textarea>
+          <button
+            id="sendAskAIBtn"
+            class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl font-medium transition"
+          >
+            Ask AI
+          </button>
+          <div
+            id="askAIResponse"
+            class="mt-4 p-4 bg-[#111827] rounded-xl text-slate-200 min-h-[120px] whitespace-pre-wrap"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="leaderboardModal"
+      class="fixed inset-0 bg-black/70 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 z-50"
+    >
+      <div
+        class="bg-[#0f172a] rounded-2xl p-8 w-full max-w-2xl border border-white/10 scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold">Spending Leaderboard</h2>
+          <button
+            id="closeLeaderboardBtn"
+            class="text-slate-400 hover:text-white text-2xl"
+          >
+            ×
+          </button>
+        </div>
+        <div id="leaderboardContent" class="space-y-3">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- View Toggle -->
+    <script>
+      const homeView = document.getElementById("homeView");
+      const expensesView = document.getElementById("expensesView");
+      const homeNav = document.getElementById("homeNav");
+      const expensesNav = document.getElementById("expensesNav");
+
+      homeNav.onclick = () => {
+        homeView.classList.remove("hidden");
+        expensesView.classList.add("hidden");
+      };
+
+      expensesNav.onclick = () => {
+        homeView.classList.add("hidden");
+        expensesView.classList.remove("hidden");
+      };
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const app = document.getElementById("app-container");
+        if (app.classList.contains("hidden")) {
+          app.classList.remove("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>
