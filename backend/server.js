@@ -1,5 +1,7 @@
 require("dotenv").config();
 const app = require("./app");
+const cors = require("cors");
+app.use(cors("*"));
 const sequelize = require("./config/sequelize");
 
 const PORT = process.env.PORT || 5000;
@@ -19,4 +21,3 @@ async function syncDatabase() {
 
 // // Call the function
 syncDatabase();
-
