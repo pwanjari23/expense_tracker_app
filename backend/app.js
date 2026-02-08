@@ -38,7 +38,9 @@ app.use(morgan('dev'));
 // Log requests to file
 app.use(morgan('combined', { stream: accessLogStream }));
 
-app.use(express.static(path.join(__dirname, "../Frontend/public")));
+// app.use(express.static(path.join(__dirname, "../Frontend/public")));
+
+app.use(express.static(path.join(__dirname, "../frontend/public")));
 
 // --------------------
 // API routes
