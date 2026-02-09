@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     leaderboardContent.innerHTML = expenses
       .map(
         (item) => `
-        <div class="flex justify-between items-center bg-slate-50 rounded-lg px-4 py-3">
+        <div class="flex justify-between items-center bg-[#1e293b] rounded-lg px-4 py-3">
           <div class="flex items-center gap-3">
             <span class="text-2xl">${getEmoji(item.category)}</span>
             <span class="font-medium">${item.category}</span>
