@@ -29,7 +29,7 @@ exports.forgetPassword = async (req, res) => {
 
     const tranEmailApi = new Sib.TransactionalEmailsApi();
 
-    const resetLink = `/password/resetpassword/${resetId}`;
+    const resetLink = `${process.env.APPLICATION_BACKEND_BASE_URL}/password/resetpassword/${resetId}`;
     // const resetLink = `/password/resetpassword/${resetId}`;
 
     const sendSmtpEmail = {
